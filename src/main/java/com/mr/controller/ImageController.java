@@ -1,8 +1,9 @@
 package com.mr.controller;
 
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,18 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Slf4j
 @Controller
 @RequestMapping("/image")
 public class ImageController {
-    private final static String DEFAULT_PATH = File.separator + "pictures";
-    private final static String CLASSPATH = "classpath:";
+    private final static String DEFAULT_PATH = "pictures";
 
     /**
      * 显示图片接口
@@ -35,9 +36,10 @@ public class ImageController {
         }
 
         imagePath = URLDecoder.decode(imagePath, "utf-8");
-        File file = ResourceUtils.getFile(CLASSPATH + imagePath);
+        log.info("imagePath {}", imagePath);
+        ClassPathResource resource = new ClassPathResource(imagePath);
 
-        FileInputStream inputStream = new FileInputStream(file);
+        InputStream inputStream = resource.getInputStream();
         response.setContentType("multipart/form-data");
         ServletOutputStream out = response.getOutputStream();
         int i;
