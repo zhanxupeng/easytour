@@ -1,0 +1,24 @@
+#spring:
+#  datasource:
+#    driverClassName: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:ORCL
+#    username: zhan
+#    password: zhan123456
+
+spring:
+  datasource:
+      url: jdbc:mysql://localhost:3306/easytour?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: 998973
+      driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.mr.entity
+http:
+  port: 8080
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:www.luchenxue.cn.jks
+    key-store-password: zhan123456
+    key-store-type: JKS

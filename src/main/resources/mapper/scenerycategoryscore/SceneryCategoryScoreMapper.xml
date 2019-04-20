@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.dao.scenerycategoryscore.SceneryCategoryScoreMapper">
+    <resultMap id="BaseResultMap" type="com.mr.entity.scenerycategoryscore.SceneryCategoryScore">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="SCENERY_ID" jdbcType="VARCHAR" property="sceneryId"/>
+        <result column="NATURE" jdbcType="DECIMAL" property="nature"/>
+        <result column="HISTORY" jdbcType="DECIMAL" property="history"/>
+        <result column="FORMER_RESIDENCE" jdbcType="DECIMAL" property="formerResidence"/>
+        <result column="PARK" jdbcType="DECIMAL" property="park"/>
+        <result column="ARCHITECTURE" jdbcType="DECIMAL" property="architecture"/>
+        <result column="SPECIAL_BLOCK" jdbcType="DECIMAL" property="specialBlock"/>
+        <result column="MOVIE_CITY" jdbcType="DECIMAL" property="movieCity"/>
+        <result column="RELIGION" jdbcType="DECIMAL" property="religion"/>
+        <result column="SOCIAL_CUSTOM" jdbcType="DECIMAL" property="socialCustom"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="UPDATOR" jdbcType="VARCHAR" property="updator"/>
+        <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="VERSION" jdbcType="DECIMAL" property="version"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        SCENERY_ID,
+        NATURE,
+        HISTORY,
+        FORMER_RESIDENCE,
+        PARK,
+        ARCHITECTURE,
+        SPECIAL_BLOCK,
+        MOVIE_CITY,
+        RELIGION,
+        SOCIAL_CUSTOM,
+        CREATOR,
+        CREATE_DATE,
+        UPDATOR,
+        UPDATE_DATE,
+        VERSION,
+        REMARK
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from SCENERY_CATEGORY_SCORE
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from SCENERY_CATEGORY_SCORE
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.mr.entity.scenerycategoryscore.SceneryCategoryScore">
+    insert into SCENERY_CATEGORY_SCORE
+      (ID,
+      SCENERY_ID,
+      NATURE,
+      HISTORY,
+      FORMER_RESIDENCE,
+      PARK,
+      ARCHITECTURE,
+      SPECIAL_BLOCK,
+      MOVIE_CITY,
+      RELIGION,
+      SOCIAL_CUSTOM,
+      CREATOR,
+      CREATE_DATE,
+      UPDATOR,
+      UPDATE_DATE,
+      VERSION,
+      REMARK)
+    values
+      (#{id,jdbcType=VARCHAR},
+      #{sceneryId,jdbcType=VARCHAR},
+      #{nature,jdbcType=DECIMAL},
+      #{history,jdbcType=DECIMAL},
+      #{formerResidence,jdbcType=DECIMAL},
+      #{park,jdbcType=DECIMAL},
+      #{architecture,jdbcType=DECIMAL},
+      #{specialBlock,jdbcType=DECIMAL},
+      #{movieCity,jdbcType=DECIMAL},
+      #{religion,jdbcType=DECIMAL},
+      #{socialCustom,jdbcType=DECIMAL},
+      #{creator,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP},
+      #{updator,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP},
+      #{version,jdbcType=DECIMAL},
+      #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.mr.entity.scenerycategoryscore.SceneryCategoryScore">
+        update SCENERY_CATEGORY_SCORE
+        <set>
+            <if test="sceneryId != null">
+                SCENERY_ID = #{sceneryId,jdbcType=VARCHAR},
+            </if>
+            <if test="nature != null">
+                NATURE = #{nature,jdbcType=DECIMAL},
+            </if>
+            <if test="history != null">
+                HISTORY = #{history,jdbcType=DECIMAL},
+            </if>
+            <if test="formerResidence != null">
+                FORMER_RESIDENCE = #{formerResidence,jdbcType=DECIMAL},
+            </if>
+            <if test="park != null">
+                PARK = #{park,jdbcType=DECIMAL},
+            </if>
+            <if test="architecture != null">
+                ARCHITECTURE = #{architecture,jdbcType=DECIMAL},
+            </if>
+            <if test="specialBlock != null">
+                SPECIAL_BLOCK = #{specialBlock,jdbcType=DECIMAL},
+            </if>
+            <if test="movieCity != null">
+                MOVIE_CITY = #{movieCity,jdbcType=DECIMAL},
+            </if>
+            <if test="religion != null">
+                RELIGION = #{religion,jdbcType=DECIMAL},
+            </if>
+            <if test="socialCustom != null">
+                SOCIAL_CUSTOM = #{socialCustom,jdbcType=DECIMAL},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                UPDATOR = #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

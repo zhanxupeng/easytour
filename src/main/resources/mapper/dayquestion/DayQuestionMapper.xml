@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.dao.dayquestion.DayQuestionMapper">
+    <resultMap id="BaseResultMap" type="com.mr.entity.dayquestion.DayQuestion">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="QUESTION" jdbcType="VARCHAR" property="question"/>
+        <result column="ANSWERA" jdbcType="VARCHAR" property="answera"/>
+        <result column="ANSWERB" jdbcType="VARCHAR" property="answerb"/>
+        <result column="ANSWERC" jdbcType="VARCHAR" property="answerc"/>
+        <result column="ANSWERD" jdbcType="VARCHAR" property="answerd"/>
+        <result column="ANSWER" jdbcType="CHAR" property="answer"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID,
+    QUESTION,
+    ANSWERA,
+    ANSWERB,
+    ANSWERC,
+    ANSWERD,
+    ANSWER
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from DAY_QUESTION
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from DAY_QUESTION
+    where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.mr.entity.dayquestion.DayQuestion">
+    insert into DAY_QUESTION
+      (ID,
+      QUESTION,
+      ANSWERA,
+      ANSWERB,
+      ANSWERC,
+      ANSWERD,
+      ANSWER)
+    values
+      (#{id,jdbcType=VARCHAR},
+      #{question,jdbcType=VARCHAR},
+      #{answera,jdbcType=VARCHAR},
+      #{answerb,jdbcType=VARCHAR},
+      #{answerc,jdbcType=VARCHAR},
+      #{answerd,jdbcType=VARCHAR},
+      #{answer,jdbcType=CHAR})
+    </insert>
+
+    <update id="update" parameterType="com.mr.entity.dayquestion.DayQuestion">
+        update DAY_QUESTION
+        <set>
+            <if test="question != null">
+                QUESTION = #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answera != null">
+                ANSWERA = #{answera,jdbcType=VARCHAR},
+            </if>
+            <if test="answerb != null">
+                ANSWERB = #{answerb,jdbcType=VARCHAR},
+            </if>
+            <if test="answerc != null">
+                ANSWERC = #{answerc,jdbcType=VARCHAR},
+            </if>
+            <if test="answerd != null">
+                ANSWERD = #{answerd,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                ANSWER = #{answer,jdbcType=CHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="countAll" resultType="int">
+        SELECT
+        count(1)
+        FROM DAY_QUESTION
+    </select>
+
+    <select id="query" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM DAY_QUESTION
+        ORDER BY QUESTION
+    </select>
+</mapper>

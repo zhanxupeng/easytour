@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.dao.scenery.SceneryMapper">
+    <resultMap id="BaseResultMap" type="com.mr.entity.scenery.Scenery">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="CITY_CODE" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="PICTURES" jdbcType="VARCHAR" property="pictures"/>
+        <result column="SPECIAL" jdbcType="VARCHAR" property="special"/>
+        <result column="BRIEF" jdbcType="VARCHAR" property="brief"/>
+        <result column="GUIDE" jdbcType="VARCHAR" property="guide"/>
+        <result column="ADULT_TICKET" jdbcType="DECIMAL" property="adultTicket"/>
+        <result column="STUDENT_TICKET" jdbcType="DECIMAL" property="studentTicket"/>
+        <result column="POSITION" jdbcType="VARCHAR" property="position"/>
+        <result column="advise_duration" jdbcType="DECIMAL" property="adviseDuration"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="UPDATOR" jdbcType="VARCHAR" property="updator"/>
+        <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="VERSION" jdbcType="DECIMAL" property="version"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        CITY_CODE,
+        NAME,
+        PICTURES,
+        SPECIAL,
+        BRIEF,
+        GUIDE,
+        ADULT_TICKET,
+        STUDENT_TICKET,
+        POSITION,
+        advise_duration,
+        CREATOR,
+        CREATE_DATE,
+        UPDATOR,
+        UPDATE_DATE,
+        VERSION,
+        REMARK
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from SCENERY
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from SCENERY
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.mr.entity.scenery.Scenery">
+    insert into SCENERY
+      (ID,
+      CITY_CODE,
+      NAME,
+      PICTURES,
+      SPECIAL,
+      BRIEF,
+      GUIDE,
+      ADULT_TICKET,
+      STUDENT_TICKET,
+      POSITION,
+      advise_duration,
+      CREATOR,
+      CREATE_DATE,
+      UPDATOR,
+      UPDATE_DATE,
+      VERSION,
+      REMARK)
+    values
+      (#{id,jdbcType=VARCHAR},
+      #{cityCode,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR},
+      #{pictures,jdbcType=VARCHAR},
+      #{special,jdbcType=VARCHAR},
+      #{brief,jdbcType=VARCHAR},
+      #{guide,jdbcType=VARCHAR},
+      #{adultTicket,jdbcType=DECIMAL},
+      #{studentTicket,jdbcType=DECIMAL},
+      #{position,jdbcType=VARCHAR},
+      #{adviseDuration,jdbcType=DECIMAL},
+      #{creator,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP},
+      #{updator,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP},
+      #{version,jdbcType=DECIMAL},
+      #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.mr.entity.scenery.Scenery">
+        update SCENERY
+        <set>
+            <if test="cityCode != null">
+                CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="pictures != null">
+                PICTURES = #{pictures,jdbcType=VARCHAR},
+            </if>
+            <if test="special != null">
+                SPECIAL = #{special,jdbcType=VARCHAR},
+            </if>
+            <if test="brief != null">
+                BRIEF = #{brief,jdbcType=VARCHAR},
+            </if>
+            <if test="guide != null">
+                GUIDE = #{guide,jdbcType=VARCHAR},
+            </if>
+            <if test="adultTicket != null">
+                ADULT_TICKET = #{adultTicket,jdbcType=DECIMAL},
+            </if>
+            <if test="studentTicket != null">
+                STUDENT_TICKET = #{studentTicket,jdbcType=DECIMAL},
+            </if>
+            <if test="position != null">
+                POSITION = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="adviseDuration != null ">
+                ADVISE_DURATION = #{adviseDuration,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                UPDATOR = #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="suit" parameterType="com.mr.dto.SceneryQueryDTO" resultType="com.mr.dto.SceneryDTO">
+        SELECT
+        a.ID AS id,
+        a.CITY_CODE AS cityCode,
+        a.NAME AS name,
+        a.PICTURES AS pictures,
+        a.SPECIAL AS special,
+        a.BRIEF AS brief,
+        a.GUIDE AS guide,
+        a.ADVISE_DURATION AS adviseDuration,
+        a.ADULT_TICKET AS adultTicket,
+        a.STUDENT_TICKET AS studentTicket,
+        a.POSITION AS position,
+        a.CREATOR AS creator,
+        a.CREATE_DATE AS createDate,
+        a.UPDATOR AS updator,
+        a.UPDATE_DATE AS updateDate,
+        a.VERSION AS version,
+        <if test="categoryList != null and categoryList.size > 0">
+            <foreach collection="categoryList" item="category" separator=" + " open="(" close=")">
+                bb.${category}
+            </foreach>
+            AS categoryScore,
+        </if>
+        <if test="preferenceList != null and preferenceList.size > 0">
+            <foreach collection="preferenceList" item="preference" separator=" + " open="(" close=")">
+                cc.${preference}
+            </foreach>
+            AS preferenceScore,
+        </if>
+        <if test="weather != null and weather != ''">
+            dd.${weather} AS weatherScore,
+        </if>
+        a.REMARK AS remark
+        FROM SCENERY a
+        JOIN SCENERY_CATEGORY_SCORE bb ON a.ID = bb.SCENERY_ID
+        JOIN SCENERY_PREFERENCE_SCORE cc ON a.ID = cc.SCENERY_ID
+        JOIN SCENERY_WEATHER_SCORE dd ON a.ID = dd.SCENERY_ID
+        <where>
+            <if test="cityCode != null and cityCode != ''">
+                AND a.CITY_CODE = #{cityCode}
+            </if>
+            <if test="categoryList != null and categoryList.size > 0">
+                AND a.ID IN
+                (SELECT SCENERY_ID FROM SCENERY_CATEGORY_SCORE b
+                WHERE
+                <foreach collection="categoryList" item="category" separator=" AND ">
+                    b.${category} >= 3
+                </foreach>)
+            </if>
+            <if test="preferenceList != null and preferenceList.size > 0">
+                AND a.ID IN
+                (SELECT SCENERY_ID FROM SCENERY_PREFERENCE_SCORE c
+                WHERE
+                <foreach collection="preferenceList" item="preference" separator=" AND ">
+                    c.${preference} >= 3
+                </foreach>)
+            </if>
+            <if test="weather != null and weather != ''">
+                AND a.ID IN
+                (SELECT SCENERY_ID FROM SCENERY_WEATHER_SCORE d
+                WHERE d.${weather} >= 3
+                )
+            </if>
+        </where>
+    </select>
+    
+    <select id="routeSuit" parameterType="com.mr.dto.SceneryQueryDTO" resultType="com.mr.dto.SceneryRouteDTO">
+        SELECT
+        a.ID AS id,
+        a.CITY_CODE AS cityCode,
+        a.NAME AS name,
+        a.PICTURES AS pictures,
+        a.SPECIAL AS special,
+        a.BRIEF AS brief,
+        a.GUIDE AS guide,
+        a.ADVISE_DURATION AS adviseDuration,
+        a.ADULT_TICKET AS adultTicket,
+        a.STUDENT_TICKET AS studentTicket,
+        a.POSITION AS position,
+        a.CREATOR AS creator,
+        a.CREATE_DATE AS createDate,
+        a.UPDATOR AS updator,
+        a.UPDATE_DATE AS updateDate,
+        a.VERSION AS version,
+        <if test="categoryList != null and categoryList.size > 0">
+            <foreach collection="categoryList" item="category" separator=" + " open="(" close=")">
+                bb.${category}
+            </foreach>
+            AS categoryScore,
+        </if>
+        <if test="preferenceList != null and preferenceList.size > 0">
+            <foreach collection="preferenceList" item="preference" separator=" + " open="(" close=")">
+                cc.${preference}
+            </foreach>
+            AS preferenceScore,
+        </if>
+        a.REMARK AS remark
+        FROM SCENERY a
+        JOIN SCENERY_CATEGORY_SCORE bb ON a.ID = bb.SCENERY_ID
+        JOIN SCENERY_PREFERENCE_SCORE cc ON a.ID = cc.SCENERY_ID
+        <where>
+            <if test="cityCode != null and cityCode != ''">
+                AND a.CITY_CODE = #{cityCode}
+            </if>
+            <if test="categoryList != null and categoryList.size > 0">
+                AND a.ID IN
+                (SELECT SCENERY_ID FROM SCENERY_CATEGORY_SCORE b
+                WHERE
+                <foreach collection="categoryList" item="category" separator=" AND ">
+                    b.${category} >= 3
+                </foreach>)
+            </if>
+            <if test="preferenceList != null and preferenceList.size > 0">
+                AND a.ID IN
+                (SELECT SCENERY_ID FROM SCENERY_PREFERENCE_SCORE c
+                WHERE
+                <foreach collection="preferenceList" item="preference" separator=" AND ">
+                    c.${preference} >= 3
+                </foreach>)
+            </if>
+        </where>
+    </select>
+    
+    <select id="detail" parameterType="com.mr.dto.RecommendDetailDTO" resultType="com.mr.dto.SceneryDTO">
+        SELECT
+        a.ID AS id,
+        a.CITY_CODE AS cityCode,
+        a.NAME AS name,
+        a.PICTURES AS pictures,
+        a.SPECIAL AS special,
+        a.BRIEF AS brief,
+        a.GUIDE AS guide,
+        a.ADVISE_DURATION AS adviseDuration,
+        a.ADULT_TICKET AS adultTicket,
+        a.STUDENT_TICKET AS studentTicket,
+        a.POSITION AS position,
+        a.CREATOR AS creator,
+        a.CREATE_DATE AS createDate,
+        a.UPDATOR AS updator,
+        a.UPDATE_DATE AS updateDate,
+        a.VERSION AS version,
+        <if test="categoryList != null and categoryList.size > 0">
+            <foreach collection="categoryList" item="category" separator=" + " open="(" close=")">
+                bb.${category}
+            </foreach>
+            AS categoryScore,
+        </if>
+        <if test="preferenceList != null and preferenceList.size > 0">
+            <foreach collection="preferenceList" item="preference" separator=" + " open="(" close=")">
+                cc.${preference}
+            </foreach>
+            AS preferenceScore,
+        </if>
+        <if test="weather != null and weather != ''">
+            dd.${weather} AS weatherScore,
+        </if>
+        a.REMARK AS remark
+        FROM SCENERY a
+        JOIN SCENERY_CATEGORY_SCORE bb ON a.ID = bb.SCENERY_ID
+        JOIN SCENERY_PREFERENCE_SCORE cc ON a.ID = cc.SCENERY_ID
+        JOIN SCENERY_WEATHER_SCORE dd ON a.ID = dd.SCENERY_ID
+        where a.ID = #{sceneryId}
+    </select>
+</mapper>

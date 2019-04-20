@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.dao.customer.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.mr.entity.customer.Customer">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="NICK_NAME" jdbcType="VARCHAR" property="nickName"/>
+        <result column="SEX" jdbcType="CHAR" property="sex"/>
+        <result column="HEAD_PICTURE" jdbcType="VARCHAR" property="headPicture"/>
+        <result column="GOLD_COIN" jdbcType="DECIMAL" property="goldCoin"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="UPDATOR" jdbcType="VARCHAR" property="updator"/>
+        <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="VERSION" jdbcType="DECIMAL" property="version"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID,
+    USER_NAME,
+    PASSWORD,
+    NICK_NAME,
+    SEX,
+    HEAD_PICTURE,
+    GOLD_COIN,
+    CREATOR,
+    CREATE_DATE,
+    UPDATOR,
+    UPDATE_DATE,
+    VERSION,
+    REMARK
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CUSTOMER
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from CUSTOMER
+    where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.mr.entity.customer.Customer">
+    insert into CUSTOMER
+      (ID,
+      USER_NAME,
+      PASSWORD,
+      NICK_NAME,
+      SEX,
+      HEAD_PICTURE,
+      GOLD_COIN,
+      CREATOR,
+      CREATE_DATE,
+      UPDATOR,
+      UPDATE_DATE,
+      VERSION,
+      REMARK)
+    values
+      (#{id,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR},
+      #{nickName,jdbcType=VARCHAR},
+      #{sex,jdbcType=CHAR},
+      #{headPicture,jdbcType=VARCHAR},
+      #{goldCoin,jdbcType=DECIMAL},
+      #{creator,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP},
+      #{updator,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP},
+      #{version,jdbcType=DECIMAL},
+      #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.mr.entity.customer.Customer">
+        update CUSTOMER
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                NICK_NAME = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="headPicture != null">
+                HEAD_PICTURE = #{headPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="goldCoin != null">
+                GOLD_COIN = #{goldCoin,jdbcType=DECIMAL},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                UPDATOR = #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getByUserName" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM CUSTOMER
+        WHERE USER_NAME = #{userName,jdbcType=VARCHAR}
+    </select>
+</mapper>

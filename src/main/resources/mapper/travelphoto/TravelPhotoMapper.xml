@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.dao.travelphoto.TravelPhotoMapper">
+    <resultMap id="BaseResultMap" type="com.mr.entity.travelphoto.TravelPhoto">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId"/>
+        <result column="CATEGORY" jdbcType="VARCHAR" property="category"/>
+        <result column="PICTURES" jdbcType="VARCHAR" property="pictures"/>
+        <result column="CITY" jdbcType="CHAR" property="city"/>
+        <result column="SCENERY_NAME" jdbcType="VARCHAR" property="sceneryName"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="BRIEF" jdbcType="VARCHAR" property="brief"/>
+        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="UPDATOR" jdbcType="VARCHAR" property="updator"/>
+        <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="VERSION" jdbcType="DECIMAL" property="version"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        CUSTOMER_ID,
+        CATEGORY,
+        PICTURES,
+        CITY,
+        SCENERY_NAME,
+        TITLE,
+        BRIEF,
+        CONTENT,
+        CREATOR,
+        CREATE_DATE,
+        UPDATOR,
+        UPDATE_DATE,
+        VERSION,
+        REMARK
+    </sql>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TRAVEL_PHOTO
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from TRAVEL_PHOTO
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.mr.entity.travelphoto.TravelPhoto">
+    insert into TRAVEL_PHOTO
+      (ID,
+      CUSTOMER_ID,
+      CATEGORY,
+      PICTURES,
+      CITY,
+      SCENERY_NAME,
+      TITLE,
+      BRIEF,
+      CONTENT,
+      CREATOR,
+      CREATE_DATE,
+      UPDATOR,
+      UPDATE_DATE,
+      VERSION,
+      REMARK)
+    values
+      (#{id,jdbcType=VARCHAR},
+      #{customerId,jdbcType=VARCHAR},
+      #{category,jdbcType=VARCHAR},
+      #{pictures,jdbcType=VARCHAR},
+      #{city,jdbcType=CHAR},
+      #{sceneryName,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR},
+      #{brief,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP},
+      #{updator,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP},
+      #{version,jdbcType=DECIMAL},
+      #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.mr.entity.travelphoto.TravelPhoto">
+        update TRAVEL_PHOTO
+        <set>
+            <if test="customerId != null">
+                CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                CATEGORY = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="pictures != null">
+                PICTURES = #{pictures,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                CITY = #{city,jdbcType=CHAR},
+            </if>
+            <if test="sceneryName != null">
+                SCENERY_NAME = #{sceneryName,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                TITLE = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="brief != null">
+                BRIEF = #{brief,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updator != null">
+                UPDATOR = #{updator,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByCategory" resultType="com.mr.dto.TravelListDTO">
+        SELECT
+        a.ID AS id,
+        a.PICTURES AS pictures,
+        a.BRIEF AS brief,
+        b.HEAD_PICTURE AS headPicture,
+        b.NICK_NAME AS nickName
+        FROM TRAVEL_PHOTO a
+        INNER JOIN CUSTOMER b ON a.CUSTOMER_ID = b.ID
+        WHERE a.CATEGORY = #{category,jdbcType=VARCHAR}
+        order by a.CREATE_DATE desc
+    </select>
+</mapper>
