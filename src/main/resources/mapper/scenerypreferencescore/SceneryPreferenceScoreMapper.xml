@@ -24,7 +24,7 @@
         SCENERY_ID,
         ENTERTAINMENT,
         QUIET,
-        NATURAL,
+        `NATURAL`,
         HISTORY,
         LIVELY,
         STIMULATE,
@@ -55,7 +55,7 @@
       SCENERY_ID,
       ENTERTAINMENT,
       QUIET,
-      NATURAL,
+      `NATURAL`,
       HISTORY,
       LIVELY,
       STIMULATE,
@@ -97,7 +97,7 @@
                 QUIET = #{quiet,jdbcType=DECIMAL},
             </if>
             <if test="natural != null">
-                NATURAL = #{natural,jdbcType=DECIMAL},
+                `NATURAL` = #{natural,jdbcType=DECIMAL},
             </if>
             <if test="history != null">
                 HISTORY = #{history,jdbcType=DECIMAL},

@@ -24,14 +24,14 @@
     <sql id="Base_Column_List">
         ID,
         CITY_CODE,
-        NAME,
+        `NAME`,
         PICTURES,
         SPECIAL,
         BRIEF,
         GUIDE,
         ADULT_TICKET,
         STUDENT_TICKET,
-        POSITION,
+        `POSITION`,
         advise_duration,
         CREATOR,
         CREATE_DATE,
@@ -57,14 +57,14 @@
     insert into SCENERY
       (ID,
       CITY_CODE,
-      NAME,
+      `NAME`,
       PICTURES,
       SPECIAL,
       BRIEF,
       GUIDE,
       ADULT_TICKET,
       STUDENT_TICKET,
-      POSITION,
+      `POSITION`,
       advise_duration,
       CREATOR,
       CREATE_DATE,
@@ -99,7 +99,7 @@
                 CITY_CODE = #{cityCode,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
-                NAME = #{name,jdbcType=VARCHAR},
+                `NAME` = #{name,jdbcType=VARCHAR},
             </if>
             <if test="pictures != null">
                 PICTURES = #{pictures,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
                 STUDENT_TICKET = #{studentTicket,jdbcType=DECIMAL},
             </if>
             <if test="position != null">
-                POSITION = #{position,jdbcType=VARCHAR},
+                `POSITION` = #{position,jdbcType=VARCHAR},
             </if>
             <if test="adviseDuration != null ">
                 ADVISE_DURATION = #{adviseDuration,jdbcType=VARCHAR},

@@ -88,7 +88,9 @@ public class ImageController {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(URLEncoder.encode("pictures" + File.separator + "nous_eg.jpg", "utf-8"));
-        System.out.println("\\image\\show?imagePath=" + URLEncoder.encode("nous" + File.separator + "nous_eg.jpg", "utf-8"));
+//        System.out.println(URLEncoder.encode("pictures" + File.separator + "nous_eg.jpg", "utf-8"));
+        System.out.println("\\image\\show?imagePath=" +
+                URLEncoder.encode("pictures" + File.separator + "tab" + File.separator
+                        + "recommend.png", "utf-8"));
     }
 }

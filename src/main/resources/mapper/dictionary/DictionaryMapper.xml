@@ -16,8 +16,8 @@
 
     <sql id="Base_Column_List">
     ID,
-    TYPE,
-    KEY,
+    `TYPE`,
+    `KEY`,
     LABEL,
     CREATOR,
     CREATE_DATE,
@@ -42,8 +42,8 @@
     <insert id="insert" parameterType="com.mr.entity.dictionary.Dictionary">
     insert into DICTIONARY
       (ID,
-      TYPE,
-      KEY,
+      `TYPE`,
+      `KEY`,
       LABEL,
       CREATOR,
       CREATE_DATE,
@@ -68,10 +68,10 @@
         update DICTIONARY
         <set>
             <if test="type != null">
-                TYPE = #{type,jdbcType=VARCHAR},
+                `TYPE` = #{type,jdbcType=VARCHAR},
             </if>
             <if test="key != null">
-                KEY = #{key,jdbcType=VARCHAR},
+                `KEY` = #{key,jdbcType=VARCHAR},
             </if>
             <if test="label != null">
                 LABEL = #{label,jdbcType=VARCHAR},
@@ -102,7 +102,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM DICTIONARY
-        WHERE TYPE = #{type,jdbcType=VARCHAR}
+        WHERE `TYPE` = #{type,jdbcType=VARCHAR}
         AND LABEL = #{label,jdbcType=VARCHAR}
     </select>
 </mapper>
